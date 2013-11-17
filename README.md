@@ -1,7 +1,10 @@
-# Useful tool-set for developer
+codebox
+======
 
-## Git download
-git clone https://bitbucket.org/deren_wu/codebox.git
+## Useful shell tool-set for developer
 
-## ZIP download
-<https://bitbucket.org/deren_wu/codebox/get/master.zip>
+### Git clone
+git clone https://github.com/deren/codebox.git
+
+### ZIP download
+<https://github.com/deren/codebox/archive/master.zip>
