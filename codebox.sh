@@ -145,8 +145,7 @@ function gettop()
         if [ "$selection" == "N" ] || [ "$selection" == "n" ]; then
             echo 'No root direcotory(You should "settop" first)'
         else
-            SymbolExport DW_PROJ_TOP_DIR "$top"
-            echo $top
+            settop "$top"
         fi
 	fi
 }
@@ -157,7 +156,9 @@ function settop()
 		return
 	fi
 	SymbolExport DW_PROJ_TOP_DIR "$1"
-	echo "Top dir ==> $DW_PROJ_TOP_DIR"
+	SymbolExport CSCOPE_DB "$1/cscope.out"
+	echo "Top dir   ==> $DW_PROJ_TOP_DIR"
+	echo "Cscope DB ==> $CSCOPE_DB"
 }
 function croot()
 {
