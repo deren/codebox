@@ -250,7 +250,7 @@ function setPS1()
     local BGW="\[\033[47m\]"
 
     local NONE="\[\033[0m\]"    # unsets color to term's fg color
-    echo "${BGK}${C}\u@\h: ${G}\w${EMB}\$(parse_git_branch)${NONE}\n\\$ "
+    echo "[\t]${BGK}${C}\u@\h: ${G}\w${EMB}\$(parse_git_branch)${NONE}\n\\$ "
 }
 
 # Disable the following line if you do not want to change prompt
