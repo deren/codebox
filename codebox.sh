@@ -249,7 +249,7 @@ local BGC="\[\033[46m\]"
 local BGW="\[\033[47m\]"
 
 local NONE="\[\033[0m\]"    # unsets color to term's fg color
-echo "${BGK}${C}\u@\h: ${G}\W${EMB}\$(parse_git_branch)${NONE}\\$ "
+echo "${BGK}${C}\u@\h: ${G}\w${EMB}\$(parse_git_branch)${NONE}\n\\$ "
 }
 
 # Remove this line if you do not want to change prompt
