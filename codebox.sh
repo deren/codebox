@@ -211,6 +211,9 @@ function godir () {
 	cd $T/$pathname
 }
 
+function command_exists () {
+    type "$1" &> /dev/null ;
+}
 
 function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -252,6 +255,10 @@ function setPS1()
     local NONE="\[\033[0m\]"    # unsets color to term's fg color
     echo "[\t]${BGK}${C}\u@\h: ${G}\w${EMB}\$(parse_git_branch)${NONE}\n\\$ "
 }
-
 # Disable the following line if you do not want to change prompt
 export PS1=$(setPS1)
+
+# Setup for SVN editor
+if command_exists vim ; then
+    export SVN_EDITOR=vim
+fi
