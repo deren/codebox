@@ -138,10 +138,21 @@ function search_project_top()
 }
 function gettop()
 {
+	local top=$(search_project_top)
 	if [ -n "$DW_PROJ_TOP_DIR" ]; then
-		echo $DW_PROJ_TOP_DIR
+		if [ "$top" != "$DW_PROJ_TOP_DIR" ]; then
+			echo "Old root: $DW_PROJ_TOP_DIR"
+			echo "New root: $top"
+			read -p "Do you want to use new root? [y/N]:" selection
+			if [ "$selection" == "Y" ] || [ "$selection" == "y" ]; then
+				settop "$top"
+			else
+				settop "$DW_PROJ_TOP_DIR"
+			fi
+		else
+			settop "$DW_PROJ_TOP_DIR"
+		fi
 	else
-        local top=$(search_project_top)
         read -p "Is root at $top [Y/n]: " selection
         if [ "$selection" == "N" ] || [ "$selection" == "n" ]; then
             echo 'No root direcotory(You should "settop" first)'
