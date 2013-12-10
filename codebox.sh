@@ -24,6 +24,7 @@ Major functions:
 - croot:        Changes directory to the top of the tree.
 - gettop:       Get the top folder in current settings.
 - settop:       Set the top folder in current settings.
+- cscopeGen:    Create cscope related files for your whole project. Please run this command at the top folder of project.
 - help2:        Print this menu.
 
 Minor functions:
@@ -220,6 +221,66 @@ function godir () {
 		pathname=${lines[0]}
 	fi
 	cd $T/$pathname
+}
+
+function cscopeGen()
+{
+	########################################################
+	#
+	# Author : Deren Wu. 2012/Oct/28. (deren.g@gmail.com)
+	#
+	# Description : Create cscope related files for your whole project.
+	#				Please run this script at the top folder of project.
+	#
+	#				If you want to link your cscope everywhere in shell, try to setup/export "CSCOPE_DB" environment.
+	#				EX : CSCOPE_DB=/top_of_my_project/cscope.out
+	#				     export CSCOPE_DB
+	#				Ref: http://cscope.sourceforge.net/cscope_vim_tutorial.html
+	########################################################
+
+	local CSCOPE_FILE=cscope.out
+	local CSCOPE_LOG=cscope.log
+
+	if [ "$1" == "" ] || [ "$1" == "." ] || [ "$1" = "$PWD" ]; then
+		echo "Which kind of root path you want to use?"
+		echo "1. Relative path (.)"
+		echo "2. Absolute path ($PWD)"
+		read -p "Please choose 1 or 2 : " selection
+
+		case $selection in
+			"1")
+				root_path=.
+				;;
+			"2")
+				root_path=$PWD
+				;;
+			"*")
+				echo "Invalid selection"
+				exit 1
+				;;
+		esac
+	fi
+	echo -e "\nThis may take several miniutes. Please wait.......\n"
+
+	local TIME_START=$(date +%s)
+
+	if [ -n "$root_path" ]; then
+	  echo "Source code directory: " $root_path
+	  echo "Create file map : " $CSCOPE_FILE
+	  echo "Create log file : " $CSCOPE_LOG
+	  find $root_path -name "*.h" -o -name "*.c" -o -name "*.cpp" > $CSCOPE_FILE
+	  cscope -bkq -i $CSCOPE_FILE > $CSCOPE_LOG 2>&1
+	  # cscope -Rbkq
+	  ctags -R >> $CSCOPE_LOG 2>&1
+	else
+	  echo "Please key-in path of project"
+	fi
+
+	local TIME_END=$(date +%s)
+	local TIME_DIFF=$(( $TIME_END - $TIME_START ))
+	echo "Took $(($TIME_DIFF/60)) miniutes $(($TIME_DIFF%60)) seconds"
+
+
 }
 
 function command_exists () {
