@@ -25,7 +25,7 @@ Major functions:
 - gettop:       Get the top folder in current settings.
 - settop:       Set the top folder in current settings.
 - cscopeGen:    Create cscope related files for your whole project. Please run this command at the top folder of project.
-- help2:        Print this menu.
+- help2:        Print this help menu.
 
 Minor functions:
 - search_project_top:   Auto-detect your project root by getting '.git'/'.svn'/'tags'/'cscope.out'.
